@@ -9,6 +9,12 @@ eureka:
 spring:
   application:
     name: gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9666/realms/learning-hub-app"
+          jwk-set-uri: "${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs"
   cloud:
     gateway:
       discovery:
@@ -21,3 +27,10 @@ spring:
             - Path=/api/v1/courses/**,/api/v1/course/rates/**,/api/v1/course/reviews/**,/api/v1/instructors/**,/api/v1/users/**
 server:
   port: 8222
+
+tesla:
+  oauth2:
+    claim:
+      name: preferred_username
+    client:
+      name: learning-hub
