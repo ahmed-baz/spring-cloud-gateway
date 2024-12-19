@@ -1,38 +1,8 @@
-eureka:
-  client:
-    service-url:
-      default-zone: https://${eureka.instance.hostname}:8761/eureka/
-  instance:
-    hostname: localhost
-    prefer-ip-address: true
-
-spring:
-  application:
-    name: gateway
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: "http://localhost:9666/realms/learning-hub-app"
-          jwk-set-uri: "${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs"
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      routes:
-        - id: learn-hub-service
-          uri: lb:http://LEARN-HUB-SERVICE
-          predicates:
-            - Path=/api/v1/courses/**,/api/v1/course/rates/**,/api/v1/course/reviews/**,/api/v1/instructors/**,/api/v1/users/**
-          filters:
-            - AddSpecifiedHeader
 server:
   port: 8222
 
-tesla:
-  oauth2:
-    claim:
-      name: preferred_username
-    client:
-      name: learning-hub
+spring:
+  profiles:
+    active: dev
+  application:
+    name: gateway-server
